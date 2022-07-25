@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Board</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
+    <link th:href="@{/css/nav.css}" rel="stylesheet">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav">
+    <a class="navbar-brand" th:href="@{/}">Home</a>
+    <button class="navbar-toggler"
+            type="button"
+            data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+    >
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" th:href="@{/user/}">Profile</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" th:href="@{/user/create-questionForm}">Question Form</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" th:href="@{/user/create-bookApp}">Book App</a>
+            </li>
+            <li class="nav-item">
+                <form method="POST" th:action="@{/logout}">
+                    <input type="submit"
+                           name="submit"
+                           id="submit"
+                           class="btn btn-danger"
+                           value="Logout">
+                </form>
+            </li>
+        </ul>
+    </div>
+</nav>
+<div class="container">
+    <form th:action="@{/user/create-bookApp}" th:object="${bookApp}" method="POST">
+<!--        <h1 th:text="'User #' + ${bookApp.getUserId()}"/>-->
+        <h1>Book App</h1>
+        <div class="row mb-3">
+            <div class="form-outline datepicker">
+                <label for="date">Appointment Date</label>
+                <input class="form-control" type="date" name="date" id="date" required value="${ #temporals.formatISO(bookApp.date}"/>
+            </div>
+        </div>
+        <div         th:value="${bookApp.userId}"></div>
+        <br>
+        <div class="row mb-3">
+            <label for="vaccine-id" class="col-5">Vaccine Center</label>
+            <div class="col-15">
+                <select id="vaccineCenter-id"
+                        name="vaccineCenter-id"
+                        th:field="*{vaccineCenterId}"
+                        class="form-select"
+                >
+                    <option th:each="vaccineCenter: ${vaccineCenters}"
+                            th:value="${vaccineCenter.id}"
+                            th:text="${vaccineCenter.name}"></option>
+                </select>
+                <div class="alert alert-danger"
+                     th:errors="*{vaccineCenterId}"
+                     th:if="${#fields.hasErrors('vaccineCenterId')}"/>
+            </div>
+        </div>
+
+        <div class="container my-2">
+            <h1>Vaccines</h1>
+            <table class="table">
+                <thead class="table-dark">
+                <tr>
+                    <th scope="col">Id</th>
+                    <th scope="col">Vaccine Type</th>
+                    <th scope="col">Pros and Cons</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="vaccine : ${vaccines}">
+                    <td th:text="${vaccine.id}"></td>
+                    <td th:text="${vaccine.type}"></td>
+                    <td th:text="${vaccine.characteristic}">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+
+        <div class="row mb-3">
+            <label for="vaccine-id" class="col-5">Vaccine Type</label>
+            <div class="col-15">
+                <select id="vaccine-id"
+                        name="vaccine-id"
+                        th:field="*{vaccineId}"
+                        class="form-select"
+                >
+                    <option th:each="vaccine: ${vaccines}"
+                            th:value="${vaccine.id}"
+                            th:text="${vaccine.type}"></option>
+                </select>
+                <div class="alert alert-danger"
+                     th:errors="*{vaccineId}"
+                     th:if="${#fields.hasErrors('vaccineId')}"/>
+            </div>
+        </div>
+        <input type="submit" id="submit" name="submit" value="Submit" class="btn btn-dark">
+    </form>
+</div>
+</body>
+</html>

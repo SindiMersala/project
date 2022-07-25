@@ -53,6 +53,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 					.accessDeniedPage("/403")
 					.and()
 				.csrf()
-					.ignoringAntMatchers("");
+					.ignoringAntMatchers("/ooo");
 	}
 }

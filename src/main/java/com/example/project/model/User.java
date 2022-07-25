@@ -1,5 +1,6 @@
 package com.example.project.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -8,6 +9,10 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Validated
 @Entity
@@ -39,10 +44,13 @@ public class User implements Serializable {
 
     @Column(name = "city")
     private String city;
+
     @Column(name = "state")
     private String state;
+
     @Column(name = "address")
     private String address;
+
     @Column(name = "coordinates")
     private String coordinates;
 
@@ -50,8 +58,41 @@ public class User implements Serializable {
     @ManyToOne
     @JoinColumn(name = "application_role_id", nullable = false)
     private ApplicationRole applicationRole;
+    @OneToMany(mappedBy = "user")
+    @JsonManagedReference
+    private Set<BookApp> bookApps = new HashSet<>();
+
+    @OneToMany(
+            mappedBy = "user",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.ALL,
+            orphanRemoval = true
+    )
+    @JsonManagedReference
+    private List<Answer> answers = new ArrayList<>();
+
+public void addBookApp(BookApp bookApp) {
+    bookApps.add(bookApp);
+    bookApp.setUser(this);
+}
+
+    public void removeBookApp(BookApp bookApp) {
+        bookApps.remove(bookApp);
+        bookApp.setUser(null);
+    }
+    public void addAnswer(Answer a) {
+        answers.add(a);
+        a.setUser(this);
+    }
+
+    public void removeAnswer(Answer a) {
+        answers.remove(a);
+        a.setUser(null);
+    }
 
 
+    public User(Set<BookApp> bookApps){
+ this.bookApps.forEach(bookApp-> bookApp.setUser(this));}
 
     @Override
     public boolean equals(Object o) {
@@ -64,5 +105,9 @@ public class User implements Serializable {
     @Override
     public int hashCode() {
         return Long.hashCode(id);
+    }
+
+    public Set<BookApp> getName() {
+    return this.getName();
     }
 }
