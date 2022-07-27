@@ -33,7 +33,7 @@ public class Vaccine implements Serializable {
     private String characteristic;
 
     @Column(name = "inventory")
-    private String inventory;
+    private long inventory;
 
     @OneToMany(mappedBy = "vaccine")
     private Set<BookApp> bookApps = new HashSet<>();

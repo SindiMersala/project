@@ -3,7 +3,6 @@ package com.example.project.controller;
 import com.example.project.exception.ResourceAlreadyExistsException;
 import com.example.project.model.request.AnswerRequest;
 import com.example.project.model.request.BookAppRequest;
-import com.example.project.model.request.UserCreateRequest;
 import com.example.project.service.AdminService;
 import com.example.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.io.IOException;
 import java.security.Principal;
 
 @Controller

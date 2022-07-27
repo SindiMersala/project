@@ -72,6 +72,9 @@ public long getUserIdByEmail(Principal principal){
 			bookApp.setDate(bookAppRequest.getDate());
 			user.addBookApp(bookApp);
 			bookApp.setVaccine(vaccine);
+			var inventory=userRepository.findInventoryOfVaccine(bookAppRequest.getVaccineId(),bookAppRequest.getVaccineCenterId());
+		     newInventory( inventory);
+			 bookApp.getVaccine().setInventory(newInventory(inventory));
 			bookApp.setVaccineCenter(vaccineCenter);
 			userRepository.createRequest(userId,bookApp.getVaccine().getId());
 			bookAppRepository.save(bookApp);
@@ -211,5 +214,10 @@ public List<String> showUserVaccine(Principal principal){
 			userRepository.save(usr);
 		}
 	}
+
+	public long newInventory(long inventory){
+		return inventory-1;
+	}
+
 }
 

@@ -90,4 +90,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			nativeQuery = true
 	)
 	int getCountOfStatus(String accept,long userId);
+
+@Query(value= " select inventory from  vaccine  where id= ?1 ",
+        nativeQuery=true
+)
+long findInventoryOfVaccine(long vaccineId,long vaccineCenterId);
+
 }
