@@ -3,6 +3,8 @@ package com.example.project.controller;
 import com.example.project.exception.ResourceAlreadyExistsException;
 import com.example.project.model.request.AnswerRequest;
 import com.example.project.model.request.BookAppRequest;
+import com.example.project.model.request.UserCreateRequest;
+import com.example.project.service.AdminService;
 import com.example.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.logging.log4j.LogManager;
@@ -16,6 +18,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -26,11 +29,12 @@ public class UserController {
 	private static final Logger LOGGER = LogManager.getLogger(UserController.class);
 
 	private final UserService userService;
-
+	private final AdminService adminService;
 
 	@Autowired
-	public UserController(UserService userService) {
+	public UserController(UserService userService,AdminService adminService) {
 		this.userService = userService;
+		this.adminService=adminService;
 	}
 
 
@@ -39,6 +43,9 @@ public class UserController {
 		var usr = userService.getUserByPrincipal(principal);
 		if (usr.isPresent()) {
 			model.addAttribute("user", usr.get());
+			model.addAttribute("pending1",userService.showNotification1(principal));
+		model.addAttribute("pending2",userService.showNotification2(principal));
+			model.addAttribute("pending3",userService.showNotification3(principal));
 			return "user/account";
 		}
 		log.error("No user with username {} can be found", principal.getName());
@@ -68,7 +75,6 @@ public class UserController {
 		model.addAttribute("bookApp", booKApp);
 		model.addAttribute("vaccines", vaccines);
 		model.addAttribute("vaccineCenters",vaccineCenters);
-		//model.addAttribute("prosAndCons", userService.getVaccineValuesForBookApp(booKApp.getId()));
 		return "user/bookApp";
 	}
 
@@ -101,7 +107,7 @@ public class UserController {
 		return "user/questionForm";
 	}
 	@PostMapping("/create-questionForm")
-	public String createBookApp(
+	public String createQuestionForm(
 			@Valid @ModelAttribute("answer") AnswerRequest answer,
 			Principal principal,
 			BindingResult bindingResult
@@ -119,6 +125,28 @@ public class UserController {
 		}
 	}
 
+
+
+	@GetMapping("/list")
+	public String showVaccine(Model model, Principal principal) {
+		var usr = userService.getUserByPrincipal(principal);
+		if (usr.isPresent()) {
+			var user=usr.get();
+			var vaccines=userService.showUserVaccine(principal);
+			var statuses=userService.showStatuses(principal);
+
+			model.addAttribute("vaccines",vaccines);
+			model.addAttribute("statuses",statuses);
+			model.addAttribute("status1",userService.showStatus1(principal));
+
+			model.addAttribute("status2",userService.showStatus2(principal));
+
+			model.addAttribute("status3",userService.showStatus3(principal));
+			return "user/list";
+		}
+		log.error("No user with username {} can be found", principal.getName());
+		return "error/404";
+	}
 
 }
 

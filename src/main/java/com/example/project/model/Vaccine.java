@@ -8,7 +8,9 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Validated
@@ -35,6 +37,9 @@ public class Vaccine implements Serializable {
 
     @OneToMany(mappedBy = "vaccine")
     private Set<BookApp> bookApps = new HashSet<>();
+
+    @OneToMany(mappedBy = "vaccine")
+    private List<Status> statuses = new ArrayList<>();
 
     @Override
     public boolean equals(Object o) {

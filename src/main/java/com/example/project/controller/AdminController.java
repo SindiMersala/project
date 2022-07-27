@@ -29,7 +29,7 @@ public class AdminController {
 		var usr = adminService.getUserByPrincipal(principal);
 		if (usr.isPresent()) {
 			model.addAttribute("user", usr.get());
-			model.addAttribute("pending", adminService.hasPendingNotifications(principal));
+			model.addAttribute("pending",adminService.hasPendingNotifications(principal));
 			return "admin/account";
 		}
 		return "error/404";
@@ -37,24 +37,40 @@ public class AdminController {
 
 
 	@GetMapping("/notifications")
-	public String invitations(Principal principal, Model model) {
-		var notifications = adminService.getNotifications(principal);
-		model.addAttribute("invites", notifications);
+	public String invitations( Model model) {
+		var notifications = adminService.showNotifications();
+		model.addAttribute("notifications", notifications);
 		model.addAttribute("req", new NotificationAcceptRequest());
-		return "admin/invitations";
+		return "admin/notifications";
 	}
 
-	@PostMapping("/notifications/accept/{vaccineCenterId}")
-	public String acceptInvitation(
-			Principal principal,
-			@PathVariable long vaccineCenterId
+
+	@GetMapping("/notifications/accept/{id}")
+	public String acceptRequest(
+			@PathVariable long id
 	) {
-		var out = "redirect:/user/notifications";
+		var out = "redirect:/admin/notifications";
 		try {
-			adminService.acceptInvitation(principal, vaccineCenterId);
+			adminService.acceptRequest(id);
 		}
 		catch (ResourceNotFoundException ex) {
-			LOGGER.info(ex.getMessage());
+
+			out = "error/404";
+		}
+
+		return out;
+	}
+
+	@GetMapping("/notifications/reject/{id}")
+	public String rejectRequest(
+			@PathVariable long id
+	) {
+		var out = "redirect:/admin/notifications";
+		try {
+			adminService.rejectRequest(id);
+		}
+		catch (ResourceNotFoundException ex) {
+
 			out = "error/404";
 		}
 

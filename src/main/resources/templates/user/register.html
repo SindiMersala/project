@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Board</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+          crossorigin="anonymous">
+    <link th:href="@{/css/nav.css}" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <hr>
+    <h2>New User</h2>
+    <form th:action="@{/register}"
+          th:object="${user}"
+          method="POST"
+          enctype="multipart/form-data"
+    >
+        <input type="text"
+               id="first-name"
+               name="first-name"
+               th:field="*{firstName}"
+               placeholder="First Name"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{firstName}"
+             th:if="${#fields.hasErrors('firstName')}"
+        >
+            Name Error
+        </div>
+
+        <input type="text"
+               id="last-name"
+               name="last-name"
+               th:field="*{lastName}"
+               placeholder="Last name"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{lastName}"
+             th:if="${#fields.hasErrors('lastName')}"
+        >
+            Last Name Error
+        </div>
+        <input type="text"
+               id="email"
+               name="email"
+               th:field="*{email}"
+               placeholder="Email"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">
+            Email Error
+        </div>
+        <input type="password"
+               id="password"
+               name="password"
+               th:field="*{password}"
+               placeholder="Password"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{password}"
+             th:if="${#fields.hasErrors('password')}"
+        >
+            Password Error
+        </div>
+        <input type="text"
+               id="IDCard"
+               name="IDCard"
+               th:field="*{IDCard}"
+               placeholder="ID Card"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{IDCard}"
+             th:if="${#fields.hasErrors('IDCard')}"
+        >
+            ID Card Error
+        </div>
+        <input type="value"
+               id="age"
+               name="age"
+               th:field="*{age}"
+               placeholder="Age"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{age}"
+             th:if="${#fields.hasErrors('age')}"
+        >
+            Age Error
+        </div>
+        <input type="text"
+               id="city"
+               name="city"
+               th:field="*{city}"
+               placeholder="City"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{city}"
+             th:if="${#fields.hasErrors('city')}"
+        >
+            City Error
+        </div>
+        <input type="text"
+               id="state"
+               name="state"
+               th:field="*{state}"
+               placeholder="State"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{state}"
+             th:if="${#fields.hasErrors('state')}"
+        >
+            State Error
+        </div>
+        <input type="text"
+               id="address"
+               name="address"
+               th:field="*{address}"
+               placeholder="Address"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{address}"
+             th:if="${#fields.hasErrors('address')}"
+        >
+            Address Error
+        </div>
+        <input type="text"
+               id="coordinates"
+               name="coordinates"
+               th:field="*{coordinates}"
+               placeholder="Coordinates"
+               class="form-control mb-4 col-4">
+        <div class="alert alert-danger"
+             th:errors="*{coordinates}"
+             th:if="${#fields.hasErrors('coordinates')}"
+        >
+            Coordinates Error
+        </div>
+        <input type="submit" id="submit" name="submit" value="submit">
+    </form>
+    <hr>
+</div>
+</body>
+</html>

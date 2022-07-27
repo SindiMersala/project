@@ -30,19 +30,6 @@
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item">
-				<div sec:authorize="hasRole('ROLE_ADMIN')">
-					<a class="nav-link" th:href="@{/admin/}">Dashboard</a>
-				</div>
-			</li>
-			<li class="nav-item">
-				<div sec:authorize="hasRole('ROLE_ADMIN')">
-					<a class="nav-link" th:href="@{/admin/create-user}">Create User</a>
-				</div>
-			</li>
-
-
-
-			<li class="nav-item">
 				<form method="POST" th:action="@{/logout}">
 					<input type="submit"
 						   name="submit"
@@ -67,6 +54,12 @@
 <div class="container">
 	<div class="col ">
 		<a class="btn btn-success" th:href="@{/login}">Log in</a>
+	</div>
+<br>
+	<hr>
+	<div class="col">
+
+		<a th:href="@{/register}" class="btn btn-dark">If you are new register here!</a>
 	</div>
 </div>
 </body>

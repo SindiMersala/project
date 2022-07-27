@@ -4,7 +4,8 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class DbNotificationResponse {
 
-    public long notificationId;
+    public long userId;
     public long vaccineId;
+    public String userName;
     public String vaccineName;
 }

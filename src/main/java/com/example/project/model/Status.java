@@ -1,5 +1,6 @@
 package com.example.project.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -9,46 +10,44 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
+
 @Validated
 @Entity
-@Table(name = "bookApp")
+@Table(name = "status")
 @NoArgsConstructor
 @Getter
 @Setter
-public class BookApp implements Serializable {
+public class Status implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "native")
     @GenericGenerator(name = "native", strategy = "native")
     @Column(name = "id", nullable = false)
     private long id;
-    @Column(name="date")
-    private String date;
+
 
     @ManyToOne
-    @JoinColumn(name = "vaccine_id")
-    private Vaccine vaccine;
-
-    @ManyToOne
-    @JsonIgnore
+    @JsonBackReference
     @JoinColumn(name = "user_id")
     private User user;
 
-
     @ManyToOne
-    @JoinColumn(name="vaccineCenter_id")
-    private VaccineCenter vaccineCenter;
+    @JsonIgnore
+    @JoinColumn(name = "vaccine_id")
+    private Vaccine vaccine;
+    @Column(name = "accept")
+    private String accept;
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        BookApp bookApp = (BookApp) o;
-        return id == bookApp.id;
+        Status status = (Status) o;
+        return id == status.id && Objects.equals(user, status.user) && Objects.equals(vaccine, status.vaccine) && Objects.equals(accept, status.accept);
     }
 
     @Override
     public int hashCode() {
-        return Long.hashCode(id);
+        return Objects.hash(id, user, vaccine, accept);
     }
-
 }

@@ -48,47 +48,41 @@
         </ul>
     </div>
 </nav>
-<div class="container">
-    <div class="card mb-3" style="margin-top: 20px; max-width: 540px;">
-        <div class="row g-0">
 
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5>Welcome <span th:text="${user.firstName}">!</span></h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <table class="table">
-            <thead>
-            <h1>User Info</h1>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Members</th>
-                <th scope="col">Email</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.firstName}"></td>
-                <td th:text="${user.lastName}"></td>
-                <td th:text="${user.email}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
 
-    <a th:href="@{/admin/notifications}" class="btn btn-dark position-relative">
-        Requests
-        <div th:if="${pending}">
-			<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-				<span class="visually-hidden">New alerts</span>
-			</span>
-        </div>
-    </a>
+<div class="container my-2">
+    <h1>Requests</h1>
+    <table class="table">
+        <thead class="table-dark">
+        <tr>
+            <th scope="col">User Id</th>
+            <th scope="col">User Name</th>
+            <th scope="col">Vaccine Id</th>
+            <th scope="col">Vaccine Name</th>
+            <th scope="col">Approve and Reject Request</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="notification : ${notifications}">
+            <td th:text="${notification.userId}"></td>
+            <td th:text="${notification.userName}"></td>
+            <td th:text="${notification.vaccineId}"></td>
+            <td th:text="${notification.vaccineName}"></td>
+            <td>
+
+
+                    <a th:href="@{/admin/notifications/accept/{id}(id=${notification.userId})}" class="btn btn-dark">
+				Accept
+			     </a>
+                <a th:href="@{/admin/notifications/reject/{id}(id=${notification.userId})}" class="btn btn-dark">
+                    Reject
+                </a>
+            </td>
+        </tr>
+
+        </tbody>
+    </table>
+
 </div>
 </body>
 </html>

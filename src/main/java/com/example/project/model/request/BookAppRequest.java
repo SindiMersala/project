@@ -23,23 +23,20 @@ public class BookAppRequest {
     private long userId;
     @NotNull
     private long vaccineCenterId;
+    @NotNull
+    private long vaccineId;
 
-        @NotNull
-        private long vaccineId;
-
-
-public void setUserId(long userId){
-    this.userId=userId;
-}
     public String getDate() {
         return date;
     }
+    public void setDate(String date){this.date=date;}
 
     public long getId() {
              return this.id;
     }
-   public long getUserId(){
-        return this.userId;
-   }
+
+    public void setId(long id) {
+        this.id=id;
+    }
 
 }

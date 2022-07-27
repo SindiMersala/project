@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Profile account</title>
@@ -24,16 +24,17 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
-
             <li class="nav-item">
-                <div sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a class="nav-link" th:href="@{/admin/}">Account-Admin</a>
-                </div>
+                <a class="nav-link" aria-current="page" th:href="@{/user/}">Profile</a>
             </li>
             <li class="nav-item">
-                <div sec:authorize="hasRole('ROLE_ADMIN')">
-                    <a class="nav-link" th:href="@{/admin/notifications}">Notifications</a>
-                </div>
+                <a class="nav-link" aria-current="page" th:href="@{/user/list}">Vaccine List</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" th:href="@{/user/create-questionForm}">Question Form</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" aria-current="page" th:href="@{/user/create-bookApp}">Book App</a>
             </li>
 
             <li class="nav-item">
@@ -49,46 +50,47 @@
     </div>
 </nav>
 <div class="container">
-    <div class="card mb-3" style="margin-top: 20px; max-width: 540px;">
-        <div class="row g-0">
+<div th:text="${status1}"></div>
+    <div th:text="${status2}"></div>
+    <div th:text="${status3} "></div>
 
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5>Welcome <span th:text="${user.firstName}">!</span></h5>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <table class="table">
             <thead>
-            <h1>User Info</h1>
+            <h1>Vaccine Information</h1>
+
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Members</th>
-                <th scope="col">Email</th>
+                <th scope="col">Name</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.firstName}"></td>
-                <td th:text="${user.lastName}"></td>
-                <td th:text="${user.email}"></td>
+            <tr th:each="vaccine : ${vaccines}">
+
+                <td th:text="${vaccine}"></td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <a th:href="@{/admin/notifications}" class="btn btn-dark position-relative">
-        Requests
-        <div th:if="${pending}">
-			<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-				<span class="visually-hidden">New alerts</span>
-			</span>
-        </div>
-    </a>
+
+    <div class="row">
+        <table class="table">
+            <thead>
+            <h1>Vaccine Status</h1>
+
+            <tr>
+                <th scope="col">Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="status : ${statuses}">
+
+                <td th:text="${status}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>
+
 </body>
 </html>

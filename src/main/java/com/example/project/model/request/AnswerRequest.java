@@ -4,20 +4,19 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.validation.constraints.NotNull;
-
+import javax.validation.constraints.NotBlank;
 
     @Getter
     @Setter
     @NoArgsConstructor
     public class AnswerRequest {
         private long id;
-        @NotNull
-        private String answer1 ="";
-        @NotNull
-        private String answer2 ="";
-        @NotNull
-        private String answer3 ="";
+        @NotBlank
+        private String answer1 ;
+        @NotBlank
+        private String answer2 ;
+        @NotBlank
+        private String answer3 ;
 
         private long userId;
 

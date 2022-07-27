@@ -1,5 +1,7 @@
 package com.example.project.model;
 
+import com.example.project.config.SecurityConfig;
+import com.example.project.model.request.UserCreateRequest;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,6 +44,9 @@ public class User implements Serializable {
     @Column(name = "id_card")
     private String IDCard;
 
+    @Column(name = "age")
+    private long age;
+
     @Column(name = "city")
     private String city;
 
@@ -71,6 +76,10 @@ public class User implements Serializable {
     @JsonManagedReference
     private List<Answer> answers = new ArrayList<>();
 
+    @OneToMany( mappedBy = "user")
+    @JsonManagedReference
+    private List<Status> statuses = new ArrayList<>();
+
 public void addBookApp(BookApp bookApp) {
     bookApps.add(bookApp);
     bookApp.setUser(this);
@@ -79,6 +88,16 @@ public void addBookApp(BookApp bookApp) {
     public void removeBookApp(BookApp bookApp) {
         bookApps.remove(bookApp);
         bookApp.setUser(null);
+    }
+
+    public void addStatus(Status status) {
+        statuses.add(status);
+        status.setUser(this);
+    }
+
+    public void removeStatus(Status status) {
+        statuses.remove(status);
+        status.setUser(null);
     }
     public void addAnswer(Answer a) {
         answers.add(a);
@@ -94,6 +113,20 @@ public void addBookApp(BookApp bookApp) {
     public User(Set<BookApp> bookApps){
  this.bookApps.forEach(bookApp-> bookApp.setUser(this));}
 
+    public static User fromCreateRequest(UserCreateRequest req) {
+        var usr = new User();
+        usr.setFirstName(req.getFirstName());
+        usr.setLastName(req.getLastName());
+        usr.setEmail(req.getEmail());
+        usr.setPassword(SecurityConfig.PASSWORD_ENCODER.encode(req.getPassword()));
+        usr.setIDCard(req.getIDCard());
+        usr.setAge(req.getAge());
+        usr.setCity(req.getCity());
+        usr.setState(req.getState());
+        usr.setAddress(req.getAddress());
+        usr.setCoordinates(req.getCoordinates());
+        return usr;
+    }
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

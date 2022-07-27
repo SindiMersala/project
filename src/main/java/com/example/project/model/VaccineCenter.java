@@ -1,7 +1,6 @@
 package com.example.project.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -31,13 +30,24 @@ public class VaccineCenter implements Serializable {
     @Column(name="name")
     private String name;
 
-    @ManyToMany(mappedBy = "vaccineCenters")
+
+
+    @OneToMany(
+            mappedBy = "vaccineCenter",
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.PERSIST
+    )
+    @JsonManagedReference
     private Set<BookApp> bookApps = new HashSet<>();
-//
-//@ManyToOne
-//@JsonBackReference
-//@JoinColumn(name = "bookApp_id")
-//private BookApp bookApp;
+
+    public void addBookApp(BookApp b) {
+        bookApps.add(b);
+        b.setVaccineCenter(this);
+    }
+
+
+    public VaccineCenter(Set<BookApp> bookApps){
+        this.bookApps.forEach(bookApp-> bookApp.setVaccineCenter(this));}
 
     @Override
     public boolean equals(Object o) {
