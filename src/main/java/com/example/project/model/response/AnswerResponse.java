@@ -1,11 +1,10 @@
 package com.example.project.model.response;
 
 import com.example.project.model.Answer;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class AnswerResponse {
 
 

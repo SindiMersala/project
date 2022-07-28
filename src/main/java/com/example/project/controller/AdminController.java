@@ -3,8 +3,6 @@ package com.example.project.controller;
 import com.example.project.exception.ResourceNotFoundException;
 import com.example.project.model.request.NotificationAcceptRequest;
 import  com.example.project.service.AdminService;
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +13,6 @@ import java.security.Principal;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	private static final Logger LOGGER = LogManager.getLogger(AdminController.class);
 
 	private final AdminService adminService;
 
@@ -29,7 +26,7 @@ public class AdminController {
 		var usr = adminService.getUserByPrincipal(principal);
 		if (usr.isPresent()) {
 			model.addAttribute("user", usr.get());
-			model.addAttribute("pending",adminService.hasPendingNotifications(principal));
+			model.addAttribute("pending",adminService.hasPendingNotifications());
 			return "admin/account";
 		}
 		return "error/404";
@@ -76,6 +73,19 @@ public class AdminController {
 
 		return out;
 	}
+	@GetMapping("/list")
+	public String showStatuses(Model model) {
+	var statuses=adminService.getAllStatuses();
+			model.addAttribute("statuses",statuses);
+			return "admin/list";
+         }
+    @GetMapping("/users")
+    public String viewUser(Model model){
+        model.addAttribute("userList", adminService.getAllUsers());
+        return "admin/users";
+    }
+
+
 }
 
 

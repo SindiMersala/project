@@ -1,6 +1,5 @@
 package com.example.project.repository;
 
-import com.example.project.model.Vaccine;
 import com.example.project.util.SqlMapper;
 import com.example.project.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;

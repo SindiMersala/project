@@ -1,11 +1,9 @@
 package com.example.project.model.response;
 
 import com.example.project.model.BookApp;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 
-
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class BookAppResponse {
 
     public final long id;

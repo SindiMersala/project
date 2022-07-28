@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Profile account</title>
+    <title>Requests</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
@@ -59,46 +59,35 @@
     </div>
 </nav>
 <div class="container">
-    <div class="card mb-3" style="margin-top: 20px; max-width: 540px;">
-        <div class="row g-0">
 
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5>Welcome <span th:text="${user.firstName}">!</span></h5>
-                </div>
-            </div>
-        </div>
-    </div>
     <div class="row">
         <table class="table">
             <thead>
-            <h1>User Info</h1>
+            <h1>Vaccine Status</h1>
+
             <tr>
-                <th scope="col">Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Members</th>
-                <th scope="col">Email</th>
+                <th scope="col">Status Id</th>
+                <th scope="col">Status User Id</th>
+                <th scope="col">Status User Email</th>
+                <th scope="col">Status Vaccine Id</th>
+                <th scope="col">Status Vaccine Name</th>
+                <th scope="col">Status Done or Reject</th>
             </tr>
             </thead>
             <tbody>
-            <tr>
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.firstName}"></td>
-                <td th:text="${user.lastName}"></td>
-                <td th:text="${user.email}"></td>
+            <tr th:each="status : ${statuses}">
+
+                <td th:text="${status.id}"></td>
+                <td th:text="${status.userId}"></td>
+                <td th:text="${status.email}"></td>
+                <td th:text="${status.vaccineId}"></td>
+                <td th:text="${status.vaccineName}"></td>
+                <td th:text="${status.accept}"></td>
             </tr>
             </tbody>
         </table>
     </div>
 
-    <a th:href="@{/admin/notifications}" class="btn btn-dark position-relative">
-        Requests
-        <div th:if="${pending}">
-			<span class="position-absolute top-0 start-100 translate-middle p-2 bg-danger border border-light rounded-circle">
-				<span class="visually-hidden">New alerts</span>
-			</span>
-        </div>
-    </a>
 </div>
 </body>
 </html>

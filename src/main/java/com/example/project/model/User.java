@@ -2,6 +2,7 @@ package com.example.project.model;
 
 import com.example.project.config.SecurityConfig;
 import com.example.project.model.request.UserCreateRequest;
+import com.example.project.model.request.UserUpdateRequest;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -108,8 +109,6 @@ public void addBookApp(BookApp bookApp) {
         answers.remove(a);
         a.setUser(null);
     }
-
-
     public User(Set<BookApp> bookApps){
  this.bookApps.forEach(bookApp-> bookApp.setUser(this));}
 
@@ -126,6 +125,18 @@ public void addBookApp(BookApp bookApp) {
         usr.setAddress(req.getAddress());
         usr.setCoordinates(req.getCoordinates());
         return usr;
+    }
+    public void update(UserUpdateRequest req) {
+        firstName = req.getFirstName();
+        lastName = req.getLastName();
+        email = req.getEmail();
+        password=req.getPassword();
+        IDCard=req.getIDCard();
+        age=req.getAge();
+        city=req.getCity();
+        state=req.getState();
+        address=req.getAddress();
+        coordinates=req.getCoordinates();
     }
     @Override
     public boolean equals(Object o) {

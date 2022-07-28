@@ -1,8 +1,9 @@
 package com.example.project.controller;
 
-import com.example.project.exception.ResourceAlreadyExistsException;
+import com.example.project.exception.ResourceNotFoundException;
 import com.example.project.model.request.AnswerRequest;
 import com.example.project.model.request.BookAppRequest;
+import com.example.project.model.request.UserUpdateRequest;
 import com.example.project.service.AdminService;
 import com.example.project.service.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -66,7 +67,7 @@ public class UserController {
 	}
 
 	@GetMapping("/create-bookApp")
-	public String createBookApp(Model model,Principal principal) {
+	public String createBookApp(Model model) {
 		var booKApp = new BookAppRequest();
         var vaccines=userService.getAllVaccines();
 		var vaccineCenters = userService.getAllVaccineCenters();
@@ -88,17 +89,15 @@ public class UserController {
 		try {
 			userService.createBookApp(bookApp,principal);
 			return "redirect:/user/";
-		}
-		catch(ResourceAlreadyExistsException ex) {
+		} catch(ResourceNotFoundException ex) {
 			LOGGER.info(ex.getMessage());
-			return "error/400";
+			return "error/404";
 		}
 	}
 
 	@GetMapping("/create-questionForm")
 	public String createQuestionsForm(Model model,Principal principal) {
         var userId=userService.getUserIdByEmail(principal);
-		var user=userService.getUserById(userId);
 		var answer=new AnswerRequest();
 		model.addAttribute("answer", answer);
 		model.addAttribute("userIds",userId);
@@ -117,9 +116,9 @@ public class UserController {
 			userService.createQuestionForm(answer,principal);
 			return "redirect:/user/create-bookApp";
 		}
-		catch(ResourceAlreadyExistsException ex) {
+		catch(ResourceNotFoundException ex) {
 			LOGGER.info(ex.getMessage());
-			return "error/400";
+			return "error/404";
 		}
 	}
 
@@ -144,6 +143,23 @@ public class UserController {
 		}
 		log.error("No user with username {} can be found", principal.getName());
 		return "error/404";
+	}
+	@GetMapping("/update-user/{id}")
+	public String getUpdateUser(@PathVariable(value = "id") long id, Model model) {
+		var usr = userService.getUserById(id);
+		if (usr.isEmpty()) {
+			return "error/404";
+		}
+
+		model.addAttribute("user", usr.get());
+
+		return "user/update-user";
+	}
+
+	@PostMapping("/update-user")
+	public String postUpdateUser(@ModelAttribute("user") UserUpdateRequest req) {
+		userService.updateUser(req);
+		return "redirect:/user/";
 	}
 
 }

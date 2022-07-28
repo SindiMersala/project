@@ -31,10 +31,7 @@
 				<a class="nav-link" aria-current="page" th:href="@{/user/list}">Vaccine List</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" aria-current="page" th:href="@{/user/create-questionForm}">Question Form</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" aria-current="page" th:href="@{/user/create-bookApp}">Book App</a>
+				<a class="nav-link" aria-current="page" th:href="@{/user/create-questionForm}">Book App</a>
 			</li>
 
 			<li class="nav-item">
@@ -67,20 +64,33 @@
 			<tr>
 				<th scope="col">Id</th>
 				<th scope="col">First Name</th>
-				<th scope="col">Last Members</th>
+				<th scope="col">Last Name</th>
 				<th scope="col">Email</th>
+				<th scope="col">ID Card</th>
+				<th scope="col">Age</th>
+				<th scope="col">City</th>
+				<th scope="col">State</th>
+				<th scope="col">Address</th>
+				<th scope="col">Coordinates</th>
 			</tr>
 			</thead>
 			<tbody>
-			<tr>
+			<tr >
 				<td th:text="${user.id}"></td>
 				<td th:text="${user.firstName}"></td>
 				<td th:text="${user.lastName}"></td>
 				<td th:text="${user.email}"></td>
+				<td th:text="${user.IDCard}"></td>
+				<td th:text="${user.age}"></td>
+				<td th:text="${user.city}"></td>
+				<td th:text="${user.state}"></td>
+				<td th:text="${user.address}"></td>
+				<td th:text="${user.coordinates}"></td>
 			</tr>
 			</tbody>
 		</table>
 	</div>
+	<a th:href="@{/user/update-user/{id}(id=${user.id})}" class="btn btn-dark position-relative">Update</a>
 	<a th:href="@{/user/list}" class="btn btn-dark position-relative">
 		Vaccine 1
 		<div th:if="${pending1}">

@@ -1,11 +1,10 @@
 package com.example.project.model.response;
 import com.example.project.model.User;
-import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Getter
 @Setter
 public class SimpleUserResponse {

@@ -9,7 +9,7 @@ import lombok.Setter;
 
 import java.time.LocalDate;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
+@AllArgsConstructor
 @Getter
 @Setter
 
@@ -18,7 +18,6 @@ public class VaccineCenterResponse {
     private long id;
 
     private String name;
-
     public static VaccineCenterResponse fromEntity(VaccineCenter v) {
         return new VaccineCenterResponse(
                 v.getId(),
