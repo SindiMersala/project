@@ -47,7 +47,7 @@ public class AdminService {
 						" on  i.user_id = u.id  " +
 						" join vaccine v " +
 						" on i.vaccine_id = v.id" +
-				        " where u.application_role_id = 2";
+						" where u.application_role_id = 2";
 		return jdbcTemplate.query(query, (rs, rowNum) ->
 				new DbNotificationResponse(
 						rs.getLong("i.user_id"),
@@ -57,24 +57,11 @@ public class AdminService {
 				)
 		);
 	}
-String status="";
-
-	@Transactional
-	public void acceptRequest(long id)
-			throws ResourceNotFoundException
-	{
-        var vaccineId=userRepo.findVaccineIdByUserId(id);
-		if (!userRepo.hasPendingNotificationForVaccine(id)) {
-			var msg = String.format(
-					"Admin id = %d does not have an notification/request ",
-					id
-			);
-			throw new ResourceNotFoundException(msg);
-		}
-		status="Done";
-		userRepo.addStatus(id, vaccineId, status);
-		userRepo.deleteRequest(id,vaccineId);
-	}
+	String status="";
+	long count =0;
+	long vaccineId1=0;
+	long vaccineId2=0;
+	long vaccineId3=0;
 
 	@Transactional
 	public void rejectRequest(long id)
@@ -89,7 +76,38 @@ String status="";
 			);
 			throw new ResourceNotFoundException(msg);
 		}
+
 		status="Reject";
+		userRepo.addStatus(id, vaccineId, status);
+		userRepo.deleteRequest(id,vaccineId);
+	}
+	@Transactional
+	public void acceptRequest(long id)
+			throws ResourceNotFoundException
+	{
+		var vaccineId=userRepo.findVaccineIdByUserId(id);
+		if (!userRepo.hasPendingNotificationForVaccine(id)) {
+			var msg = String.format(
+					"Admin id = %d does not have an notification/request ",
+					id
+			);
+			throw new ResourceNotFoundException(msg);
+		}
+		status="Accepted";
+		++count;
+		if(count ==1 ){
+			vaccineId1=vaccineId;
+		}
+		else if(count==2){
+			vaccineId2=vaccineId;
+			makeStatusDone( id,vaccineId1);
+
+		}
+		else if(count == 3){
+			vaccineId3=vaccineId;
+			makeStatusDone( id,vaccineId2);
+		}
+
 		userRepo.addStatus(id, vaccineId, status);
 		userRepo.deleteRequest(id,vaccineId);
 	}
@@ -104,5 +122,10 @@ String status="";
 	public List<User> getAllUsers() {
 		return userRepo.findAll();
 	}
-}
+	String statusDone="Done";
+	public void makeStatusDone(long userId,long vaccineId){
 
+		userRepo.makeStatusDone(userId,vaccineId,statusDone);
+	}
+
+}

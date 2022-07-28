@@ -1,5 +1,6 @@
 package com.example.project.service;
 import com.example.project.config.SecurityConfig;
+import com.example.project.exception.PermissionDeniedException;
 import com.example.project.exception.ResourceNotFoundException;
 import com.example.project.model.*;
 import com.example.project.model.request.AnswerRequest;
@@ -87,6 +88,7 @@ public class UserService {
 			bookApp.setVaccineCenter(vaccineCenter);
 			userRepository.createRequest(userId,bookApp.getVaccine().getId());
 			bookAppRepository.save(bookApp);
+
 	}
 
     public List<String> showUserVaccine(Principal principal)
@@ -117,22 +119,44 @@ public class UserService {
 	@Transactional
 	public void createQuestionForm(AnswerRequest answerRequest, Principal principal)
 			throws
-			ResourceNotFoundException
+			ResourceNotFoundException,PermissionDeniedException
 
-	{	var userOpt= userRepository.findByEmail(principal.getName());
+	{
+
+		var out = "Accepted";
+		var doze="Done";
+		var userOpt= userRepository.findByEmail(principal.getName());
 		if (!userOpt.isPresent()) {
 			var msg = String.format(
 					"User  does not exist"
 			);
 			throw new ResourceNotFoundException(msg);
 		                          }
+		String reject="Reject";
 		var user=userOpt.get();
-		var answer = new Answer();
-		answer.setAnswer1(answerRequest.getAnswer1());
-		answer.setAnswer2(answerRequest.getAnswer2());
-		answer.setAnswer3(answerRequest.getAnswer3());
-		user.addAnswer(answer);
-		answerRepository.save(answer);
+        var userId=user.getId();
+//		 boolean has= userRepository.hasStatus(userId);
+		if((userRepository.getCountOfStatus(out,userId)==1 && userRepository.getCountOfStatus(doze,userId)==2)){
+			var msg = String.format(
+					"You have done 3 dozes"
+			);
+			throw new PermissionDeniedException(msg);
+			}
+        else if( userRepository.hasReject(reject,userId)){
+			var msg = String.format(
+					"You have Reject"
+			);
+			throw new PermissionDeniedException(msg);
+		}
+       else {
+			var answer = new Answer();
+			answer.setAnswer1(answerRequest.getAnswer1());
+			answer.setAnswer2(answerRequest.getAnswer2());
+			answer.setAnswer3(answerRequest.getAnswer3());
+			user.addAnswer(answer);
+			answerRepository.save(answer);
+		}
+
 	}
 
 	public List<String> showStatuses(Principal principal)
@@ -186,68 +210,69 @@ public class UserService {
 	}
 	public String  showStatus1(Principal principal)
 	{
-		var out = "Done";
-		var doze="";
+		var out = "Accepted";
+		var dozeOut="";
 		var reject="Reject";
 		var userId = userRepository
 				.getUserIdByEmail(principal.getName());
 		if (userRepository.getCountOfStatus(out,userId)==1)
 		{
-			doze="The first Doze was accepted you can continue with the second one";
+			dozeOut="The first Doze was accepted you can continue with the second one after you inject the first doze";
 		}
 
 		else
 		{
 			if(userRepository.getCountOfStatus(reject,userId)==1)
 			{
-				doze="The  Doze was rejected ";
+				dozeOut="The First doze was rejected ";
 
 			}
 		}
-		return doze;
+		return dozeOut;
 	}
 	public String  showStatus2(Principal principal)
 	{
-		var out = "Done";
-		var doze="";
+		var out = "Accepted";
+		var doze="Done";
+		String dozeOut="";
 		var out2="Reject";
 		var userId = userRepository
 				.getUserIdByEmail(principal.getName());
-		if (userRepository.getCountOfStatus(out,userId)==2)
+		if (userRepository.getCountOfStatus(out,userId)==1 && userRepository.getCountOfStatus(doze,userId)==1)
 		{
-			doze="The Second Doze was accepted you can continue with the third one";
+			dozeOut="The Second Doze was accepted you can continue with the third one after you inject the second doze";
 		}
 		else
 		{
-			if(userRepository.getCountOfStatus(out2,userId)==2)
+			if(userRepository.getCountOfStatus(out2,userId)==1 && userRepository.getCountOfStatus(doze,userId)==1)
 			{
-				doze="The  Doze was rejected ";
+				dozeOut="The Second doze was rejected ";
 
 			}
 		}
-		return doze;
+		return dozeOut;
 	}
 	public String  showStatus3(Principal principal)
 	{
-		var out = "Done";
-		var doze="";
-
+		var out = "Accepted";
+		var doze="Done";
+		String dozeOut="";
 		var out2="Reject";
 		var userId = userRepository
 				.getUserIdByEmail(principal.getName());
-		if (userRepository.getCountOfStatus(out,userId)==3)
+		if (userRepository.getCountOfStatus(out,userId)==1 && userRepository.getCountOfStatus(doze,userId)==2)
 		{
-			doze="The Third Doze was accepted now you are protected from corona";
+			dozeOut="The Third Doze was accepted,inject it and you will be protected from corona";
 		}
 		else
 		{
-			if(userRepository.getCountOfStatus(out2,userId)==3)
+			if(userRepository.getCountOfStatus(out2,userId)==1 && userRepository.getCountOfStatus(doze,userId)==2)
 			{
-				doze="The  Doze was rejected";
+				dozeOut="The  Doze was rejected";
 
 			}
 		}
-		return doze;
+		return dozeOut;
 	}
 	@Transactional
 	public void createUser(UserCreateRequest req) throws IOException

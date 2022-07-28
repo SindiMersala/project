@@ -33,9 +33,6 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" th:href="@{/user/create-questionForm}">Book App</a>
             </li>
-<!--            <li class="nav-item">-->
-<!--                <a class="nav-link" aria-current="page" th:href="@{/user/create-bookApp}">Book App</a>-->
-<!--            </li>-->
 
             <li class="nav-item">
                 <form method="POST" th:action="@{/logout}">
@@ -50,9 +47,9 @@
     </div>
 </nav>
 <div class="container">
-<div th:text="${status1}"></div>
-    <div th:text="${status2}"></div>
-    <div th:text="${status3} "></div>
+    <div th:text="${notification3}"></div>
+    <div th:text="${notification2} "></div>
+    <div th:text="${notification1}"></div>
 
     <div class="row">
         <table class="table">

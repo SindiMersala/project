@@ -1,5 +1,6 @@
 package com.example.project.controller;
 
+import com.example.project.exception.PermissionDeniedException;
 import com.example.project.exception.ResourceNotFoundException;
 import com.example.project.model.request.AnswerRequest;
 import com.example.project.model.request.BookAppRequest;
@@ -116,7 +117,7 @@ public class UserController {
 			userService.createQuestionForm(answer,principal);
 			return "redirect:/user/create-bookApp";
 		}
-		catch(ResourceNotFoundException ex) {
+		catch(ResourceNotFoundException | PermissionDeniedException ex) {
 			LOGGER.info(ex.getMessage());
 			return "error/404";
 		}
@@ -134,11 +135,11 @@ public class UserController {
 
 			model.addAttribute("vaccines",vaccines);
 			model.addAttribute("statuses",statuses);
-			model.addAttribute("status1",userService.showStatus1(principal));
+			model.addAttribute("notification1",userService.showStatus1(principal));
 
-			model.addAttribute("status2",userService.showStatus2(principal));
+			model.addAttribute("notification2",userService.showStatus2(principal));
 
-			model.addAttribute("status3",userService.showStatus3(principal));
+			model.addAttribute("notification3",userService.showStatus3(principal));
 			return "user/list";
 		}
 		log.error("No user with username {} can be found", principal.getName());

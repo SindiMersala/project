@@ -74,10 +74,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	@Query(value="select s.accept from status s  where s.user_id = ?1",nativeQuery=true)
 	List<String> getStatuses(long userId);
 
-
-
-
-
 	@Query(
 			value = "select count(*) from status where user_id=?1",
 			nativeQuery = true
@@ -94,5 +90,20 @@ public interface UserRepository extends JpaRepository<User, Long> {
         nativeQuery=true
 )
 long findInventoryOfVaccine(long vaccineId,long vaccineCenterId);
+	@Query(value = "update status set accept=?3 where user_id=?1 and vaccine_id=?2",
+			nativeQuery = true)
+	void makeStatusDone(long userId,long vaccineId,String statusDone);
+	@SuppressWarnings("deprecated")
+	default boolean hasReject(String reject,long userId) {
+		return SqlMapper.existsResultToBool(__hasReject(reject,userId));
+	}
+
+	@Query(
+			value = "select exists(select 1 from status where accept=?1 and user_id=?2)",
+			nativeQuery = true
+	)
+	@Deprecated
+	int __hasReject(String reject,long userId);
+
 
 }
