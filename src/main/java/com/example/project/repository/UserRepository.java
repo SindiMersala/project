@@ -109,4 +109,15 @@ long findInventoryOfVaccine(long vaccineId,long vaccineCenterId);
 	@Query(value = "update status set accept=?2 where id=?1 ",
 			nativeQuery = true)
 	void makeStatusDoneFromAccepted(long statusId,String statusDone);
+
+	default boolean hasAccepted(String accept,long userId,long vaccineId) {
+		return SqlMapper.existsResultToBool(__hasAccepted(accept, userId, vaccineId));
+	}
+
+	@Query(
+			value = "select exists(select 1 from status where accept = ?1 and user_id=?2 and vaccine_id=?3 )",
+			nativeQuery = true
+	)
+
+	int __hasAccepted(String accept,long userId,long vaccineId);
 }

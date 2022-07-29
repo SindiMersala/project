@@ -58,10 +58,6 @@ public class AdminService {
 		);
 	}
 	String status="";
-	long count =0;
-	long vaccineId1=0;
-	long vaccineId2=0;
-	long vaccineId3=0;
 
 	@Transactional
 	public void rejectRequest(long id)
@@ -96,21 +92,14 @@ public class AdminService {
 			);
 			throw new ResourceNotFoundException(msg);
 		}
+
+if (userRepo.hasAccepted("Accepted",id,vaccineId)){
+	String doneFromAccepted="Done";
+	String statusAccept="Accepted";
+	long idAccept=userRepo.findAccept(id,vaccineId, statusAccept);
+	userRepo.makeStatusDoneFromAccepted( idAccept,doneFromAccepted);
+}
 		status="Accepted";
-		++count;
-		if(count ==1 ){
-			vaccineId1=vaccineId;
-		}
-		else if(count==2){
-			vaccineId2=vaccineId;
-			makeStatusDone( id,vaccineId1);
-
-		}
-		else if(count == 3){
-			vaccineId3=vaccineId;
-			makeStatusDone( id,vaccineId2);
-		}
-
 		userRepo.addStatus(id, vaccineId, status);
 		userRepo.deleteRequest(id,vaccineId);
 	}
