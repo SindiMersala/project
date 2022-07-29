@@ -88,7 +88,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 @Query(value= " select inventory from  vaccine  where id= ?1 ",
         nativeQuery=true
 )
-long findInventoryOfVaccine(long vaccineId,long vaccineCenterId);
+long findInventoryOfVaccine(long vaccineId);
 	@Query(value = "update status set accept=?3 where user_id=?1 and vaccine_id=?2",
 			nativeQuery = true)
 	void makeStatusDone(long userId,long vaccineId,String statusDone);

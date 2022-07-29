@@ -82,7 +82,7 @@ public class UserService {
 			bookApp.setDate(bookAppRequest.getDate());
 			user.addBookApp(bookApp);
 			bookApp.setVaccine(vaccine);
-			var inventory=userRepository.findInventoryOfVaccine(bookAppRequest.getVaccineId(),bookAppRequest.getVaccineCenterId());
+			var inventory=userRepository.findInventoryOfVaccine(bookAppRequest.getVaccineId());
 		     newInventory( inventory);
 			 bookApp.getVaccine().setInventory(newInventory(inventory));
 			bookApp.setVaccineCenter(vaccineCenter);
@@ -221,7 +221,7 @@ public class UserService {
 
 		else
 		{
-			if(userRepository.getCountOfStatus(reject,userId)==1)
+			if(userRepository.getCountOfStatus(reject,userId)==1 && userRepository.getCountOfStatus(out,userId)==0)
 			{
 				dozeOut="The First doze was rejected ";
 
@@ -267,7 +267,7 @@ public class UserService {
 		{
 			if(userRepository.getCountOfStatus(out2,userId)==1 && userRepository.getCountOfStatus(doze,userId)==2 )
 			{
-				dozeOut="The  Doze was rejected";
+				dozeOut="The Third Doze was rejected";
 
 			}
 		}

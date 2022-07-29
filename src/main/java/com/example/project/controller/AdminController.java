@@ -1,7 +1,6 @@
 package com.example.project.controller;
-
+//model.addAttribute("req", new NotificationAcceptRequest());
 import com.example.project.exception.ResourceNotFoundException;
-import com.example.project.model.request.NotificationAcceptRequest;
 import  com.example.project.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,6 @@ public class AdminController {
 	public String invitations( Model model) {
 		var notifications = adminService.showNotifications();
 		model.addAttribute("notifications", notifications);
-		model.addAttribute("req", new NotificationAcceptRequest());
 		return "admin/notifications";
 	}
 
