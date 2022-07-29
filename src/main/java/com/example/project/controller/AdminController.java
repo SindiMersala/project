@@ -1,5 +1,4 @@
 package com.example.project.controller;
-//model.addAttribute("req", new NotificationAcceptRequest());
 import com.example.project.exception.ResourceNotFoundException;
 import  com.example.project.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;

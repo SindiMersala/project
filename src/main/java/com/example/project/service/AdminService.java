@@ -72,10 +72,12 @@ public class AdminService {
 			);
 			throw new ResourceNotFoundException(msg);
 		}
-		String statusAccept="Accepted";
-		String doneFromAccepted="Done";
-        long idAccept=userRepo.findAccept(id,vaccineId, statusAccept);
-		userRepo.makeStatusDoneFromAccepted( idAccept,doneFromAccepted);
+		if (userRepo.hasAccepted("Accepted",id,vaccineId)){
+			String doneFromAccepted="Done";
+			String statusAccept="Accepted";
+			long idAccept=userRepo.findAccept(id,vaccineId, statusAccept);
+			userRepo.makeStatusDoneFromAccepted( idAccept,doneFromAccepted);
+		}
 		status="Reject";
 		userRepo.addStatus(id, vaccineId, status);
 		userRepo.deleteRequest(id,vaccineId);

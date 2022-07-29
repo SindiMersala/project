@@ -210,6 +210,7 @@ public class UserService {
 	public String  showStatus1(Principal principal)
 	{
 		var out = "Accepted";
+		var doze="Done";
 		var dozeOut="";
 		var reject="Reject";
 		var userId = userRepository
@@ -221,7 +222,7 @@ public class UserService {
 
 		else
 		{
-			if(userRepository.getCountOfStatus(reject,userId)==1 && userRepository.getCountOfStatus(out,userId)==0)
+			if(userRepository.getCountOfStatus(reject,userId)==1 && userRepository.getCountOfStatus(out,userId)==0 && userRepository.getCountOfStatus(doze,userId)==0 )
 			{
 				dozeOut="The First doze was rejected ";
 
