@@ -45,8 +45,8 @@ public class UserUpdateRequest {
         var out = new UserUpdateRequest();
         out.setId(usr.getId());
         out.setEmail(usr.getEmail());
-        out.setFirstName(out.firstName);
-        out.setLastName(out.lastName);
+        out.setFirstName(usr.getFirstName());
+        out.setLastName(usr.getLastName());
         out.setPassword(usr.getPassword());
         out.setIDCard(usr.getIDCard());
         out.setAge(usr.getAge());

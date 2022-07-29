@@ -11,7 +11,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav">
-    <a class="navbar-brand" th:href="@{/}">Home</a>
+    <a class="navbar-brand" th:href="@{/}" style="margin-left: 650px;">Home</a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -33,7 +33,7 @@
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" th:href="@{/user/create-questionForm}">Book App</a>
             </li>
-<
+            <
             <li class="nav-item">
                 <form method="POST" th:action="@{/logout}">
                     <input type="submit"
@@ -47,77 +47,83 @@
     </div>
 </nav>
 <div class="container">
-    <form th:action="@{/user/create-bookApp}" th:object="${bookApp}" method="POST">
-<!--        <h1 th:text="'User #' + ${bookApp.getUserId()}"/>-->
-        <h1>Book App</h1>
-        <div class="row mb-3">
-            <div class="form-outline datepicker">
-                <label for="date">Appointment Date</label>
-                <input class="form-control" type="date" name="date" id="date" required value="${ #temporals.formatISO(bookApp.date}"/>
-            </div>
-        </div>
-        <div         th:value="${bookApp.userId}"></div>
-        <br>
-        <div class="row mb-3">
-            <label for="vaccine-id" class="col-5">Vaccine Center</label>
-            <div class="col-15">
-                <select id="vaccineCenter-id"
-                        name="vaccineCenter-id"
-                        th:field="*{vaccineCenterId}"
-                        class="form-select"
-                >
-                    <option th:each="vaccineCenter: ${vaccineCenters}"
-                            th:value="${vaccineCenter.id}"
-                            th:text="${vaccineCenter.name}"></option>
-                </select>
-                <div class="alert alert-danger"
-                     th:errors="*{vaccineCenterId}"
-                     th:if="${#fields.hasErrors('vaccineCenterId')}"/>
-            </div>
-        </div>
+    <h1 style="margin-left: 550px;">Book App</h1>
 
-        <div class="container my-2">
-            <h1>Vaccines</h1>
-            <table class="table">
-                <thead class="table-dark">
-                <tr>
-                    <th scope="col">Id</th>
-                    <th scope="col">Vaccine Type</th>
-                    <th scope="col">Pros and Cons</th>
-                    <th scope="col">Inventory</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr th:each="vaccine : ${vaccines}">
-                    <td th:text="${vaccine.id}"></td>
-                    <td th:text="${vaccine.type}"></td>
-                    <td th:text="${vaccine.characteristic}">
-                    <td th:text="${vaccine.inventory}">
-                    </td>
-                </tr>
-                </tbody>
-            </table>
+    <div>
+        <form th:action="@{/user/create-bookApp}" th:object="${bookApp}" method="POST">
 
+            <div style="margin-left: 200px;margin-right: 200px;">
+                <div class="form-outline datepicker">
+                    <label for="date">Appointment Date</label>
+                    <input class="form-control" type="date" name="date" id="date" required value="${ #temporals.formatISO(bookApp.date}"/>
+                </div>
 
-        <div class="row mb-3">
-            <label for="vaccine-id" class="col-5">Vaccine Type</label>
-            <div class="col-15">
-                <select id="vaccine-id"
-                        name="vaccine-id"
-                        th:field="*{vaccineId}"
-                        class="form-select"
-                >
-                    <option th:each="vaccine: ${vaccines}"
-                            th:value="${vaccine.id}"
-                            th:text="${vaccine.type}"></option>
-                </select>
-                <div class="alert alert-danger"
-                     th:errors="*{vaccineId}"
-                     th:if="${#fields.hasErrors('vaccineId')}"/>
+                <div         th:value="${bookApp.userId}"></div>
+                <br>
+                <div >
+                    <label for="vaccine-id">Vaccine Center</label>
+                    <div >
+                        <select id="vaccineCenter-id"
+                                name="vaccineCenter-id"
+                                th:field="*{vaccineCenterId}"
+                                class="form-select"
+                        >
+                            <option th:each="vaccineCenter: ${vaccineCenters}"
+                                    th:value="${vaccineCenter.id}"
+                                    th:text="${vaccineCenter.name}"></option>
+                        </select>
+                        <div class="alert alert-danger"
+                             th:errors="*{vaccineCenterId}"
+                             th:if="${#fields.hasErrors('vaccineCenterId')}"/>
+                    </div>
+                </div>
+
+                <div class="container my-2">
+                    <h3>Vaccines</h3>
+                    <table class="table">
+                        <thead class="table-dark">
+                        <tr>
+                            <th scope="col">Id</th>
+                            <th scope="col">Vaccine Type</th>
+                            <th scope="col">Pros and Cons</th>
+                            <th scope="col">Inventory</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="vaccine : ${vaccines}">
+                            <td th:text="${vaccine.id}"></td>
+                            <td th:text="${vaccine.type}"></td>
+                            <td th:text="${vaccine.characteristic}">
+                            <td th:text="${vaccine.inventory}">
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div>
+                    <label for="vaccine-id">Vaccine Type</label>
+                    <div>
+                        <select id="vaccine-id"
+                                name="vaccine-id"
+                                th:field="*{vaccineId}"
+                                class="form-select"
+                        >
+                            <option th:each="vaccine: ${vaccines}"
+                                    th:value="${vaccine.id}"
+                                    th:text="${vaccine.type}"></option>
+                        </select>
+                        <div class="alert alert-danger"
+                             th:errors="*{vaccineId}"
+                             th:if="${#fields.hasErrors('vaccineId')}"/>
+                    </div>
+                </div>
+                <br>
+                <input style="margin-left: 400px;" type="submit" id="submit" name="submit" value="Submit" class="btn btn-dark">
+
             </div>
-        </div>
-        <input type="submit" id="submit" name="submit" value="Submit" class="btn btn-dark">
-    </form>
+        </form>
+    </div>
 </div>
 </body>
 </html>

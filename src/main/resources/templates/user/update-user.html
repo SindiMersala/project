@@ -25,7 +25,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav mr-auto">
             <li class="nav-item">
-                <a class="nav-link" aria-current="page" th:href="@{/user/}">Profile</a>
+                <a class="nav-link" aria-current="page" th:href="@{/user/}" style="margin-left: 650px;">Profile</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" aria-current="page" th:href="@{/user/list}">Vaccine List</a>
@@ -47,97 +47,97 @@
     </div>
 </nav>
 <div class="container">
-    <hr>
-    <h2>Update User</h2>
-    <form th:action="@{/user/update-user}"
-          th:object="${user}"
-          method="POST"
-    >
-        <input type="hidden" id="id" name="id" th:field="*{id}" th:value="*{id}">
-        <input type="text"
-               id="first-name"
-               name="first-name"
-               th:field="*{firstName}"
-               th:value="*{firstName}"
-               placeholder="First Name"
-               class="form-control mb-4 col-4">
+    <h1 style="margin-left: 530px;">Update data</h1>
+    <div style="margin-left: 300px;margin-right: 300px;">
+        <div>
+                <form th:action="@{/user/update-user}"
+                  th:object="${user}"
+                  method="POST"
+            >
+                <input type="hidden" id="id" name="id" th:field="*{id}" th:value="*{id}">
+                <input type="text"
+                       id="first-name"
+                       name="first-name"
+                       th:field="*{firstName}"
+                       th:value="*{firstName}"
+                       placeholder="First Name"
+                       class="form-control mb-4 col-4">
 
 
-        <input type="text"
-               id="last-name"
-               name="last-name"
-               th:field="*{lastName}"
-               th:value="*{lastName}"
-               placeholder="Last name"
-               class="form-control mb-4 col-4">
+                <input type="text"
+                       id="last-name"
+                       name="last-name"
+                       th:field="*{lastName}"
+                       th:value="*{lastName}"
+                       placeholder="Last name"
+                       class="form-control mb-4 col-4">
 
-        <input type="text"
-               id="email"
-               name="email"
-               th:field="*{email}"
-               th:value="*{email}"
-               placeholder="Email"
-               class="form-control mb-4 col-4">
+                <input type="text"
+                       id="email"
+                       name="email"
+                       th:field="*{email}"
+                       th:value="*{email}"
+                       placeholder="Email"
+                       class="form-control mb-4 col-4">
 
-        <input type="password"
-               id="password"
-               name="password"
-               th:field="*{password}"
-               th:value="*{password}"
-               placeholder="Password"
-               class="form-control mb-4 col-4">
+                <input type="password"
+                       id="password"
+                       name="password"
+                       th:field="*{password}"
+                       th:value="*{password}"
+                       placeholder="Password"
+                       class="form-control mb-4 col-4">
 
-        <input type="text"
-               id="IDCard"
-               name="IDCard"
-               th:field="*{IDCard}"
-               th:value="*{IDCard}"
-               placeholder="ID Card"
-               class="form-control mb-4 col-4">
+                <input type="text"
+                       id="IDCard"
+                       name="IDCard"
+                       th:field="*{IDCard}"
+                       th:value="*{IDCard}"
+                       placeholder="ID Card"
+                       class="form-control mb-4 col-4">
 
-        <input type="value"
-               id="age"
-               name="age"
-               th:field="*{age}"
-               th:value="*{age}"
-               placeholder="Age"
-               class="form-control mb-4 col-4">
+                <input type="value"
+                       id="age"
+                       name="age"
+                       th:field="*{age}"
+                       th:value="*{age}"
+                       placeholder="Age"
+                       class="form-control mb-4 col-4">
 
-        <input type="text"
-               id="city"
-               name="city"
-               th:field="*{city}"
-               th:value="*{city}"
-               placeholder="City"
-               class="form-control mb-4 col-4">
+                <input type="text"
+                       id="city"
+                       name="city"
+                       th:field="*{city}"
+                       th:value="*{city}"
+                       placeholder="City"
+                       class="form-control mb-4 col-4">
 
-        <input type="text"
-               id="state"
-               name="state"
-               th:field="*{state}"
-               th:value="*{state}"
-               placeholder="State"
-               class="form-control mb-4 col-4">
+                <input type="text"
+                       id="state"
+                       name="state"
+                       th:field="*{state}"
+                       th:value="*{state}"
+                       placeholder="State"
+                       class="form-control mb-4 col-4">
 
-        <input type="text"
-               id="address"
-               name="address"
-               th:field="*{address}"
-               th:value="*{address}"
-               placeholder="Address"
-               class="form-control mb-4 col-4">
+                <input type="text"
+                       id="address"
+                       name="address"
+                       th:field="*{address}"
+                       th:value="*{address}"
+                       placeholder="Address"
+                       class="form-control mb-4 col-4">
 
-        <input type="text"
-               id="coordinates"
-               name="coordinates"
-               th:field="*{coordinates}"
-               th:value="*{coordinates}"
-               placeholder="Coordinates"
-               class="form-control mb-4 col-4">
-
-        <input type="submit" id="submit" name="submit" value="submit">
-    </form>
-    <hr>
-</div>
+                <input type="text"
+                       id="coordinates"
+                       name="coordinates"
+                       th:field="*{coordinates}"
+                       th:value="*{coordinates}"
+                       placeholder="Coordinates"
+                       class="form-control mb-4 col-4">
+                <button class="btn" style="background-color: #ff4f57;font-family:'Magneto';margin-left: 360px;" type="submit">Update</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>

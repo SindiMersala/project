@@ -31,7 +31,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 	long getAllVaccineForUser(long userId);
 
 
-	@SuppressWarnings("deprecated")
 	default boolean hasPendingNotifications() {
 		return SqlMapper.existsResultToBool(__hasPendingNotifications());
 	}
@@ -40,10 +39,10 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			value = "select exists(select 1 from request where id is not null)",
 			nativeQuery = true
 	)
-	@Deprecated
+
 	int __hasPendingNotifications();
 
-	@SuppressWarnings("deprecated")
+
 	default boolean hasPendingNotificationForVaccine(long id) {
 		return SqlMapper.existsResultToBool(__hasPendingNotificationForVaccine(id));
 	}
@@ -52,7 +51,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 			value = "select exists(select 1 from request where user_id = ?1 )",
 			nativeQuery = true
 	)
-	@Deprecated
+
 	int __hasPendingNotificationForVaccine(long id);
 
 	@Modifying(flushAutomatically = true, clearAutomatically = true)
@@ -93,7 +92,7 @@ long findInventoryOfVaccine(long vaccineId,long vaccineCenterId);
 	@Query(value = "update status set accept=?3 where user_id=?1 and vaccine_id=?2",
 			nativeQuery = true)
 	void makeStatusDone(long userId,long vaccineId,String statusDone);
-	@SuppressWarnings("deprecated")
+
 	default boolean hasReject(String reject,long userId) {
 		return SqlMapper.existsResultToBool(__hasReject(reject,userId));
 	}
@@ -102,8 +101,12 @@ long findInventoryOfVaccine(long vaccineId,long vaccineCenterId);
 			value = "select exists(select 1 from status where accept=?1 and user_id=?2)",
 			nativeQuery = true
 	)
-	@Deprecated
+
 	int __hasReject(String reject,long userId);
 
-
+	@Query(value="select id from status where user_id= ?1 and vaccine_id=?2 and accept=?3",nativeQuery = true)
+	long findAccept(long userId,long vaccineId, String status);
+	@Query(value = "update status set accept=?2 where id=?1 ",
+			nativeQuery = true)
+	void makeStatusDoneFromAccepted(long statusId,String statusDone);
 }

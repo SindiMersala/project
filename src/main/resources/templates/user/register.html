@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
-    <title>Board</title>
+    <title>Register</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
           rel="stylesheet"
           integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
@@ -11,27 +11,30 @@
 </head>
 <body>
 
-<div class="container">
-    <hr>
-    <h2>New User</h2>
-    <form th:action="@{/register}"
-          th:object="${user}"
-          method="POST"
-          enctype="multipart/form-data"
-    >
+<h2 style="margin-left: 650px;margin-top:40px;color: #ff4f57;font-family:'Magneto'">Registration Form</h2>
+<form name="f" style="width: 700px;height:600px;margin-left:500px;margin-top: 100px;background-image: url('https://cdn.poz.com/90548_iStock-1203426591.jpg_19bff7fb-7280-4345-805f-2009ec61c17c.jpeg');background-repeat: no-repeat;" th:action="@{/register}"
+      th:object="${user}"
+      method="POST"
+      enctype="multipart/form-data" >
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="text"
                id="first-name"
                name="first-name"
                th:field="*{firstName}"
                placeholder="First Name"
                class="form-control mb-4 col-4">
+
         <div class="alert alert-danger"
              th:errors="*{firstName}"
              th:if="${#fields.hasErrors('firstName')}"
         >
             Name Error
         </div>
+    </div>
 
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="text"
                id="last-name"
                name="last-name"
@@ -44,6 +47,9 @@
         >
             Last Name Error
         </div>
+    </div>
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="text"
                id="email"
                name="email"
@@ -53,6 +59,10 @@
         <div class="alert alert-danger" th:errors="*{email}" th:if="${#fields.hasErrors('email')}">
             Email Error
         </div>
+    </div>
+
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="password"
                id="password"
                name="password"
@@ -65,6 +75,10 @@
         >
             Password Error
         </div>
+    </div>
+
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="text"
                id="IDCard"
                name="IDCard"
@@ -77,6 +91,10 @@
         >
             ID Card Error
         </div>
+    </div>
+
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="value"
                id="age"
                name="age"
@@ -89,6 +107,10 @@
         >
             Age Error
         </div>
+    </div>
+
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="text"
                id="city"
                name="city"
@@ -101,6 +123,11 @@
         >
             City Error
         </div>
+    </div>
+
+
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="text"
                id="state"
                name="state"
@@ -113,6 +140,10 @@
         >
             State Error
         </div>
+    </div>
+
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="text"
                id="address"
                name="address"
@@ -125,6 +156,11 @@
         >
             Address Error
         </div>
+    </div>
+
+
+
+    <div style="padding-left: 100px;padding-right: 100px;">
         <input type="text"
                id="coordinates"
                name="coordinates"
@@ -137,9 +173,9 @@
         >
             Coordinates Error
         </div>
-        <input type="submit" id="submit" name="submit" value="submit">
-    </form>
-    <hr>
-</div>
+    </div>
+
+    <input class="btn" style="background-color: #ff4f57;font-family:'Magneto';margin-left: 300px;" type="submit" value="Submit">
+</form>
 </body>
 </html>

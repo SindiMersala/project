@@ -12,9 +12,7 @@ import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Validated
@@ -75,11 +73,11 @@ public class User implements Serializable {
             orphanRemoval = true
     )
     @JsonManagedReference
-    private List<Answer> answers = new ArrayList<>();
+    private Set<Answer> answers = new HashSet<>();
 
     @OneToMany( mappedBy = "user")
     @JsonManagedReference
-    private List<Status> statuses = new ArrayList<>();
+    private Set<Status> statuses = new HashSet<>();
 
 public void addBookApp(BookApp bookApp) {
     bookApps.add(bookApp);
@@ -151,7 +149,4 @@ public void addBookApp(BookApp bookApp) {
         return Long.hashCode(id);
     }
 
-    public Set<BookApp> getName() {
-    return this.getName();
-    }
 }

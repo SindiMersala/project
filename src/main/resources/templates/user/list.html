@@ -11,7 +11,7 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav">
-    <a class="navbar-brand" th:href="@{/}">Home</a>
+    <a class="navbar-brand" th:href="@{/}" style="margin-left: 650px;">Home</a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -47,17 +47,22 @@
     </div>
 </nav>
 <div class="container">
-    <div th:text="${notification3}"></div>
-    <div th:text="${notification2} "></div>
+    <div th:text="${notification3}" ></div>
+    <div th:text="${notification2} " ></div>
     <div th:text="${notification1}"></div>
 
-    <div class="row">
+    <br>
+    <br>
+
+    <div class="row" >
+
+
         <table class="table">
             <thead>
-            <h1>Vaccine Information</h1>
+
 
             <tr>
-                <th scope="col">Name</th>
+                <th scope="col">Vaccine Name</th>
             </tr>
             </thead>
             <tbody>
@@ -68,12 +73,10 @@
             </tbody>
         </table>
     </div>
-
-
-    <div class="row">
+    <div class="row" >
         <table class="table">
             <thead>
-            <h1>Vaccine Status</h1>
+
 
             <tr>
                 <th scope="col">Status</th>
@@ -87,6 +90,7 @@
             </tbody>
         </table>
     </div>
+
 
 </div>
 </body>

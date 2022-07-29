@@ -9,9 +9,10 @@
           crossorigin="anonymous">
     <link th:href="@{/css/nav.css}" rel="stylesheet">
 </head>
-<body>
+<body style="background-image: url('https://blackswiftgroup.com/app/uploads/2019/02/background-1-1920x900.jpg');background-repeat: no-repeat;width: 100%;height:100%;">
+
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark custom-nav">
-    <a class="navbar-brand" th:href="@{/}">Home</a>
+    <a class="navbar-brand" th:href="@{/}" style="margin-left: 650px;">Home</a>
     <button class="navbar-toggler"
             type="button"
             data-toggle="collapse"
@@ -58,39 +59,51 @@
         </ul>
     </div>
 </nav>
-<div class="container">
-    <div class="card mb-3" style="margin-top: 20px; max-width: 540px;">
-        <div class="row g-0">
+<div style="margin-left: 800px;">
+    <h5 style="font-family: 'Bradley Hand ITC';color:lightgrey;">Welcome</h5>
+    <h2 style="font-family: 'Arial Rounded MT Bold';color: lightgreen" th:text="${user.firstName}">!</h2>
+</div>
 
-            <div class="col-md-8">
-                <div class="card-body">
-                    <h5>Welcome <span th:text="${user.firstName}">!</span></h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row">
-        <table class="table">
-            <thead>
-            <h1>User Info</h1>
-            <tr>
-                <th scope="col">Id</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Members</th>
-                <th scope="col">Email</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td th:text="${user.id}"></td>
-                <td th:text="${user.firstName}"></td>
-                <td th:text="${user.lastName}"></td>
-                <td th:text="${user.email}"></td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
+<h1 style="font-family:'Magneto';color: mediumseagreen;margin-left: 750px;margin-top: 80px;">Admin Info</h1>
+<table class="table table-striped" style="margin-left: 30px;margin-top: 100px;">
 
+    <thead>
+
+    <tr>
+        <th style="color: darkolivegreen">Id</th>
+        <th style="color: darkolivegreen">First Name</th>
+        <th style="color: darkolivegreen">Last Name</th>
+        <th style="color: darkolivegreen">Email</th>
+        <th style="color: darkolivegreen">Password</th>
+        <th style="color: darkolivegreen">ID Card</th>
+        <th style="color: darkolivegreen">Age</th>
+        <th style="color: darkolivegreen">City</th>
+        <th style="color: darkolivegreen">State</th>
+        <th style="color: darkolivegreen">Address</th>
+        <th style="color: darkolivegreen">Coordinates</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr >
+        <td th:text="${user.id}" style="color:white"></td>
+        <td th:text="${user.firstName}" style="color:white"></td>
+        <td th:text="${user.lastName}" style="color:white"></td>
+        <td th:text="${user.email}" style="color:white"></td>
+        <td th:text="${user.password}" style="color:white"></td>
+        <td th:text="${user.IDCard}" style="color:white"></td>
+        <td th:text="${user.age}" style="color:white"></td>
+        <td th:text="${user.city}" style="color:white"></td>
+        <td th:text="${user.state}" style="color:white"></td>
+        <td th:text="${user.address}" style="color:white"></td>
+        <td th:text="${user.coordinates}" style="color:white"></td>
+    </tr>
+    </tbody>
+
+
+</table>
+
+<div style="margin-left: 800px;margin-top: 100px; ">
     <a th:href="@{/admin/notifications}" class="btn btn-dark position-relative">
         Requests
         <div th:if="${pending}">

@@ -39,7 +39,7 @@ public class Vaccine implements Serializable {
     private Set<BookApp> bookApps = new HashSet<>();
 
     @OneToMany(mappedBy = "vaccine")
-    private List<Status> statuses = new ArrayList<>();
+    private Set<Status> statuses = new HashSet<>();
 
     @Override
     public boolean equals(Object o) {

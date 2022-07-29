@@ -135,7 +135,6 @@ public class UserService {
 		String reject="Reject";
 		var user=userOpt.get();
         var userId=user.getId();
-//		 boolean has= userRepository.hasStatus(userId);
 		if((userRepository.getCountOfStatus(out,userId)==1 && userRepository.getCountOfStatus(doze,userId)==2)){
 			var msg = String.format(
 					"You have done 3 dozes"
@@ -266,7 +265,7 @@ public class UserService {
 		}
 		else
 		{
-			if(userRepository.getCountOfStatus(out2,userId)==1 && userRepository.getCountOfStatus(doze,userId)==2)
+			if(userRepository.getCountOfStatus(out2,userId)==1 && userRepository.getCountOfStatus(doze,userId)==2 )
 			{
 				dozeOut="The  Doze was rejected";
 
